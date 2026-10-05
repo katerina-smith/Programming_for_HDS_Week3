@@ -1,0 +1,145 @@
+# Cervical Cancer Risk Factors - Week 3 Dataset Selection and Final Project Planning Lab
+
+## Purpose and Overview
+
+This notebook is the Dataset Selection and Final Project Planning Lab for the final
+course project. It examines the UCI Cervical Cancer (Risk Factors) dataset and evaluates
+whether it is suitable for binary classification: predicting whether a patient's cervical
+biopsy will be positive based on her age, sexual and reproductive history, contraceptive
+use, smoking, and STD history. The practical use is risk stratification, in order to help a clinic
+decide which patients to prioritize for follow-up screening. It is a decision-support
+idea and does not replace diagnostic testing.
+
+The notebook has four sections:
+1. **Data Selection:** the dataset, its source, why I selected it, and a check against the
+   project requirements.
+2. **Dataset Exploration:** importing the data, structure, target variable, predictors,
+   descriptive statistics, and two exploratory visualizations.
+3. **Data Quality Assessment:** missing values, duplicates, and impossible values, plus
+   anticipated preprocessing steps and potential challenges.
+4. **Project Planning:** the prediction problem, target variable, and candidate
+   evaluation metrics.
+
+**How to use this notebook:** run every cell from top to bottom
+(**Runtime > Restart session and run all** in Colab).
+
+## Dataset Source and Provenance
+
+**Dataset:** Cervical Cancer (Risk Factors)
+
+**Source:** UCI Machine Learning Repository
+<https://archive.ics.uci.edu/dataset/383/cervical+cancer+risk+factors>
+
+**Collected at:** Hospital Universitario de Caracas, Caracas, Venezuela (2017).
+
+**License:** CC BY 4.0
+
+**Size:** 858 patients and 36 columns.
+
+**Target:** `Biopsy` (1 = positive, 0 = negative). About 6.4 percent of patients (55 of 858) are
+biopsy positive. The other three outcome columns (`Hinselmann`, `Schiller`, `Citology`)
+are screening-test results that are strongly related to the biopsy result, so they are
+excluded from the predictors.
+
+**Predictors:** 32 columns covering age, sexual and reproductive history, smoking,
+contraceptive use, STD history, and prior diagnoses.
+
+**Requirement check:**
+
+| Requirement | Needed | This dataset |
+|---|---|---|
+| Binary target | Yes | `Biopsy` (0/1) |
+| Observations | at least 300 | 858 |
+| Predictors | at least 10 | 32 |
+
+**Known data quality issues** (details and planned handling are in the notebook):
+- Missing answers are coded as `?` in the raw file (3,622 cells in total; 799 of 858
+  patients are missing at least one value).
+- Two columns, `STDs: Time since first diagnosis` and `STDs: Time since last diagnosis`,
+  are about 92 percent missing.
+- There are 23 duplicate rows.
+- Two patients have a first-intercourse age that is later than their current age.
+- Very few positive cases, so the classes are strongly imbalanced.
+
+**Redistribution:** the CSV (`risk_factors_cervical_cancer.csv`) is included in this
+repository under the dataset's CC BY 4.0 license.
+
+## Required Software and Libraries
+
+| Library | Purpose |
+|---|---|
+| pandas | Loading and summarizing the data |
+| numpy | Numerical operations and setting the random seed |
+| matplotlib | Plotting |
+
+All libraries are pre-installed in Google Colab. 
+
+A fixed random seed (`RANDOM_SEED = 42`) is set in the Setup cell. 
+
+## Setup / Installation Instructions
+
+**Option A - Google Colab (recommended, no setup required):**
+Open the notebook using the Colab link below.
+
+**Colab link:** https://colab.research.google.com/drive/1xLBL_U-zmi-CiAToyAxRE1tTvtoTVmJk#scrollTo=GAbckks39RAq
+
+**Option B - Local Jupyter / VS Code:**
+1. Clone this repository:
+   ```
+   git clone https://github.com/katerina-smith/Programming_for_HDS_Week3.git
+   cd Programming_for_HDS_Week3
+   ```
+   ```
+2. Open `Week3_FinalProjectPlanningLab.ipynb`.
+
+## How to Execute the Notebook
+
+The data-loading cell uses a two-step approach so it works in any environment without
+editing the code:
+1. If `risk_factors_cervical_cancer.csv` is in the current working directory, it is loaded
+   from there.
+2. Otherwise, it is loaded directly from this project's GitHub repository:
+   `https://raw.githubusercontent.com/katerina-smith/Programming_for_HDS_Week3/main/risk_factors_cervical_cancer.csv`
+
+In the raw file, a `?` marks a missing answer. The load step converts these to proper
+missing values (`NaN`).
+
+Run every cell from top to bottom:
+- In Colab: **Runtime > Restart session and run all**.
+- In Jupyter: **Kernel > Restart Kernel and Run All Cells**.
+
+No manual inputs, file uploads, or configuration changes are required.
+
+## Expected Outputs
+
+- A requirements check showing the binary target, number of observations, and number of
+  predictors.
+- Dataset structure (`head` and `info`), the target distribution, and descriptive
+  statistics for the predictors.
+- Two figures: the class balance of the target, and the share of patients with a positive
+  biopsy with vs. without each risk factor.
+- Data quality tables: missing values, duplicate rows, and impossible values.
+- Written findings, anticipated preprocessing steps, potential challenges, the proposed
+  prediction problem, and candidate evaluation metrics.
+
+## Dataset Requirements
+
+- `risk_factors_cervical_cancer.csv` must be in the same folder as the notebook (included
+  in this repository), or it will be retrieved automatically from this project's GitHub
+  repository.
+- No other files are required.
+
+## Assumptions and Limitations
+
+- **Few positive cases.** Only 55 of 858 patients have a positive biopsy, so results will
+  be uncertain.
+- **Non-random missing data.** Patients could skip questions for privacy reasons.
+- **Single hospital, self-reported data.** Results may not generalize to other
+  populations, and sensitive history may be under-reported.
+- **Observational data.** Relationships are associations and do not establish causes.
+
+##AI Use
+
+Anthropic. Claude. Used to improve documentation, give examples of optimal 
+reproducible workflow, and troubleshoot/optimize code. Used to explore candidate evaluation metrics. 
+Also used to generate examples of README documentation in GitHub.
